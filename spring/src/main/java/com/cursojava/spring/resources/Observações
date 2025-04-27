@@ -1,0 +1,2 @@
+Esta pasta é responsável por dispoinibilizar o recurso para o consumo na web, ela é equivalente e uma controller.
+Então através do resource, podemos disponibilizar o barramento que iremos chamar para consumir uma entidade.
