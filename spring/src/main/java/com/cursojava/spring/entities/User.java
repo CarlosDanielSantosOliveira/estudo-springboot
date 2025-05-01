@@ -1,18 +1,28 @@
 package com.cursojava.spring.entities;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
+@Table(name = "db_user")
 public class User implements Serializable {
 
     //O Serializable usamos quando queremos transformar nossos objetos em cadeia de Bytes, para que os dados possam trafegar na rede, para que possa ser gravado em arquivos entre outros.
 
     private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;
     private String phone;
     private String password;
+
+    public User() {
+        // Construtor vazio obrigatório para o Hibernate
+    }
 
     public User(Long id, String name, String email, String phone, String password) {
         this.id = id;
