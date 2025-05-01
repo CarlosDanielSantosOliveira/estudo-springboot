@@ -1,9 +1,12 @@
 package com.cursojava.spring.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,7 +18,10 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant moment; //Substitui a classe Date, por ser melhor.
+
 
     @ManyToOne
     @JoinColumn(name = "client_id") //Criando chave estrângeira
@@ -54,6 +60,7 @@ public class Order implements Serializable {
     public void setClient(User client) {
         this.client = client;
     }
+
 
     @Override
     public boolean equals(Object o) {
