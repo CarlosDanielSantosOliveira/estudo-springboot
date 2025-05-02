@@ -1,12 +1,10 @@
 package com.cursojava.spring.entities;
 
+import com.cursojava.spring.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -23,6 +21,8 @@ public class Order implements Serializable {
     private Instant moment; //Substitui a classe Date, por ser melhor.
 
 
+    private Integer orderStatus;
+
     @ManyToOne
     @JoinColumn(name = "client_id") //Criando chave estrângeira
     private User client;
@@ -31,10 +31,22 @@ public class Order implements Serializable {
 
     }
 
-    public Order(Long id, Instant moment, User client) {
+    public Order(Long id, Instant moment, User client, OrderStatus orderStatus) {
         this.id = id;
         this.moment = moment;
         this.client = client;
+        setOrderStatus(orderStatus);
+    }
+
+    public OrderStatus getOrderStatus() {
+        return OrderStatus.valueOf(orderStatus); //Agora estou pegando o número inteiro da classe e convertendo para status
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        if(orderStatus != null) {
+            this.orderStatus = orderStatus.getCode();
+        }
+
     }
 
     public Long getId() {
